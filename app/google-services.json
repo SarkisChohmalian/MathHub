@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "801370899164",
+    "project_id": "mathhub-ef718",
+    "storage_bucket": "mathhub-ef718.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:801370899164:android:a6b911df68efca669daa19",
+        "android_client_info": {
+          "package_name": "com.example.mathhub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhl75pMPr1XEkCy6NaWllzCjernXs5iQo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
