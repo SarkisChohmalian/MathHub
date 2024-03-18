@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/home"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/weeklyprob"
+        android:icon="@drawable/weeklyprob"
+        android:title="WeeklyProb" />
+
+    <item
+        android:id="@+id/fab"
+        android:enabled="false"
+        android:title="" />
+
+
+    <item
+        android:id="@+id/learn"
+        android:icon="@drawable/book"
+        android:title="Learn" />
+    <item
+        android:id="@+id/calculator"
+        android:icon="@drawable/calculator"
+        android:title="Calculator" />
+
+
+</menu>
