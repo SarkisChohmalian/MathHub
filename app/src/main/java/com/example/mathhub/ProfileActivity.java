@@ -43,11 +43,9 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 startActivity(new Intent(ProfileActivity.this, MainActivity.class));
                 finish();
             }
@@ -67,6 +65,11 @@ public class ProfileActivity extends AppCompatActivity {
             // Set the email to the TextView
             TextView emailTextView = findViewById(R.id.email);
             emailTextView.setText(userEmail);
+
+            // Set the username to the TextView
+            String username = user.getDisplayName();
+            TextView usernameTextView = findViewById(R.id.username);
+            usernameTextView.setText(username);
         }
     }
 

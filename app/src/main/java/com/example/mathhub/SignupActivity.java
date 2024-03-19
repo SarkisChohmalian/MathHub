@@ -16,11 +16,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class SignupActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
-    private EditText signupEmail, signupPassword, confirmPassword;
+    private EditText signupEmail, signupPassword, confirmPassword, username;
     private Button signupButton;
     private TextView loginRedirectText;
 
@@ -33,16 +34,18 @@ public class SignupActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         signupEmail = findViewById(R.id.signup_email);
         signupPassword = findViewById(R.id.signup_password);
+        confirmPassword = findViewById(R.id.signup_confirmpassword);
         signupButton = findViewById(R.id.signup_button);
         loginRedirectText = findViewById(R.id.loginRedirect);
-        confirmPassword = findViewById(R.id.signup_confirmpassword);
+        username = findViewById(R.id.username);
 
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String user = signupEmail.getText().toString().trim();
-                String pass = signupPassword.getText().toString().trim();
+                final String user = signupEmail.getText().toString().trim();
+                final String pass = signupPassword.getText().toString().trim();
                 String confirmpass = confirmPassword.getText().toString().trim();
+                final String userName = username.getText().toString().trim();
 
                 if (user.isEmpty()) {
                     signupEmail.setError("Email cannot be empty");
@@ -52,26 +55,42 @@ public class SignupActivity extends AppCompatActivity {
                     confirmPassword.setError("Please confirm the password");
                 } else if (!confirmpass.equals(pass)) {
                     confirmPassword.setError("Password must match");
+                } else if (userName.isEmpty()) { // Check if username is empty
+                    username.setError("Username cannot be empty");
+                } else if (userName.length() < 4) {
+                    username.setError("Username must be at least 4 characters");
                 } else {
                     auth.createUserWithEmailAndPassword(user, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                auth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            Toast.makeText(SignupActivity.this, "SignUp Successful", Toast.LENGTH_SHORT).show();
+                                auth.getCurrentUser().updateProfile(new UserProfileChangeRequest.Builder()
+                                                .setDisplayName(userName)
+                                                .build())
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    auth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            if (task.isSuccessful()) {
+                                                                Toast.makeText(SignupActivity.this, "SignUp Successful", Toast.LENGTH_SHORT).show();
 
-                                            Intent intent = new Intent(SignupActivity.this, EmailVerify.class);
-                                            intent.putExtra("Password", pass);
-                                            startActivity(intent);
-                                            finish();
-                                        } else {
-                                            Toast.makeText(SignupActivity.this, "Email Verification Failed" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
+                                                                Intent intent = new Intent(SignupActivity.this, EmailVerify.class);
+                                                                intent.putExtra("Password", pass);
+                                                                startActivity(intent);
+                                                                finish();
+                                                            } else {
+                                                                Toast.makeText(SignupActivity.this, "Email Verification Failed" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                            }
+                                                        }
+                                                    });
+                                                } else {
+                                                    Toast.makeText(SignupActivity.this, "Updating Username Failed" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
                             } else {
                                 Toast.makeText(SignupActivity.this, "SignUp Failed" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
