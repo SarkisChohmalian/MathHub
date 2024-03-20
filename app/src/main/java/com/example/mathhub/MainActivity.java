@@ -46,13 +46,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ImageView profileImageView = findViewById(R.id.profile);
-        profileImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
-            }
-        });
     }
 
     private void replaceFragment(Fragment fragment) {
