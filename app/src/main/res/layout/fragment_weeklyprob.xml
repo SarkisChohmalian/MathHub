@@ -22,11 +22,20 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
-        android:text="Weekly problems "
+        android:layout_marginTop="200dp"
+        android:layout_marginBottom="-30dp"
+        android:text="The Problem of the week is"
         android:gravity="center"
-        android:textSize="30sp"
+        android:textSize="27sp"
+        android:textStyle="bold"
         android:textColor="@color/black"/>
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:padding="20dp"
+        android:layout_height="250dp"
+        android:src="@drawable/problemofweek" />
 
 
 </LinearLayout>

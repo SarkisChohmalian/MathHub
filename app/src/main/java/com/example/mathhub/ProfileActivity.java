@@ -25,6 +25,7 @@ public class ProfileActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     private ShapeableImageView profilePicture;
     private ImageView backButton, settingsButton;
+    private TextView emailTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class ProfileActivity extends AppCompatActivity {
         profilePicture = findViewById(R.id.profile_picture);
         backButton = findViewById(R.id.back);
         settingsButton = findViewById(R.id.settings);
+        emailTextView = findViewById(R.id.email);
 
         profilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,22 +56,18 @@ public class ProfileActivity extends AppCompatActivity {
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate to SettingsActivity
                 startActivity(new Intent(ProfileActivity.this, SettingsActivity.class));
             }
         });
 
+        updateEmail();
+    }
+
+    private void updateEmail() {
         FirebaseUser user = auth.getCurrentUser();
         if (user != null) {
             String userEmail = user.getEmail();
-            // Set the email to the TextView
-            TextView emailTextView = findViewById(R.id.email);
             emailTextView.setText(userEmail);
-
-            // Set the username to the TextView
-            String username = user.getDisplayName();
-            TextView usernameTextView = findViewById(R.id.username);
-            usernameTextView.setText(username);
         }
     }
 
