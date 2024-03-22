@@ -11,7 +11,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="lavender">#8692f7</color>
     <color name="green">#A7DA6B</color>
-    <color name="red">#EC0050</color>
-    <color name="yellow">#FFFFEB3B</color>
+    <color name="red">#910032</color>
+    <color name="yellow">#B1A642</color>
     <color name="famous_blue">#0070FF</color>
+    <color name="orange">#FF9800</color>
+
 </resources>
