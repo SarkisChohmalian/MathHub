@@ -109,6 +109,7 @@
                     android:id="@+id/forgetpassword"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
+                    android:textColor="@color/blue"
                     android:layout_centerVertical="true"
                     android:text="I forgot my password" />
 
