@@ -13,8 +13,8 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="end"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
         android:src="@drawable/person_icon" />
 
     <androidx.recyclerview.widget.RecyclerView
