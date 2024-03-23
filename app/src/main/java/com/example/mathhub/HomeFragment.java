@@ -1,10 +1,10 @@
 package com.example.mathhub;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -39,6 +39,15 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(postAdapter);
 
         loadPosts();
+
+        ImageView imageView = view.findViewById(R.id.imageView2);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireContext(), ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }
