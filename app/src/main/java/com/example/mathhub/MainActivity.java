@@ -48,10 +48,7 @@ public class MainActivity extends AppCompatActivity {
         binding.createpost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create an instance of the CreatePostFragment
                 CreatePostFragment createPostFragment = new CreatePostFragment();
-
-                // Replace the current fragment with the CreatePostFragment
                 replaceFragment(createPostFragment);
             }
         });
