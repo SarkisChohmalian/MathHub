@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,7 +24,7 @@ public class ProfileActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     private ShapeableImageView profilePicture;
     private ImageView backButton, settingsButton;
-    private TextView emailTextView;
+    private TextView emailTextView, usernameTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,37 +36,23 @@ public class ProfileActivity extends AppCompatActivity {
         backButton = findViewById(R.id.back);
         settingsButton = findViewById(R.id.settings);
         emailTextView = findViewById(R.id.email);
+        usernameTextView = findViewById(R.id.username);
 
-        profilePicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openFileChooser();
-            }
+        profilePicture.setOnClickListener(v -> openFileChooser());
+        backButton.setOnClickListener(v -> {
+            startActivity(new Intent(ProfileActivity.this, MainActivity.class));
+            finish();
         });
+        settingsButton.setOnClickListener(v -> startActivity(new Intent(ProfileActivity.this, SettingsActivity.class)));
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ProfileActivity.this, MainActivity.class));
-                finish();
-            }
-        });
-
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ProfileActivity.this, SettingsActivity.class));
-            }
-        });
-
-        updateEmail();
+        updateUserInfo();
     }
 
-    private void updateEmail() {
+    private void updateUserInfo() {
         FirebaseUser user = auth.getCurrentUser();
         if (user != null) {
-            String userEmail = user.getEmail();
-            emailTextView.setText(userEmail);
+            emailTextView.setText(user.getEmail());
+            usernameTextView.setText(user.getDisplayName());
         }
     }
 
