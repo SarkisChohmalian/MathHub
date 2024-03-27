@@ -15,5 +15,6 @@
     <color name="yellow">#B1A642</color>
     <color name="famous_blue">#0070FF</color>
     <color name="orange">#FF9800</color>
+    <color name="light_gray">#DDDDDD</color>
 
 </resources>
