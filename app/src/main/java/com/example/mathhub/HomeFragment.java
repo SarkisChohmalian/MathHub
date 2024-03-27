@@ -58,11 +58,14 @@ public class HomeFragment extends Fragment {
                 for (DocumentChange documentChange : task.getResult().getDocumentChanges()) {
                     if (documentChange.getType() == DocumentChange.Type.ADDED) {
                         Post post = documentChange.getDocument().toObject(Post.class);
-                        postList.add(post);
-                        postAdapter.notifyDataSetChanged();
+                        postList.add(0, post);
+                        postAdapter.notifyItemInserted(0);
+                        recyclerView.scrollToPosition(0);
                     }
                 }
             }
         });
     }
+
+
 }

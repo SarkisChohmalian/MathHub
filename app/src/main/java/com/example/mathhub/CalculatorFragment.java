@@ -126,7 +126,7 @@ public class CalculatorFragment extends Fragment implements View.OnClickListener
             if (result instanceof Number) {
                 double numericResult = ((Number) result).doubleValue();
                 if (Double.isNaN(numericResult) || Double.isInfinite(numericResult)) {
-                    return "";
+                    return "Infinity";
                 }
                 return String.valueOf(numericResult).replace(".0", "");
             } else {
