@@ -23,7 +23,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MathHub"
+            android:text="AskMath"
             android:textColor="@color/white"
             android:textSize="70sp"
             android:textStyle="bold" />
