@@ -55,32 +55,32 @@ public class HomeFragment extends Fragment implements PostAdapter.OnPostOptionsC
         loadPosts();
 
         ImageView imageView = view.findViewById(R.id.imageView2);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(requireContext(), ProfileActivity.class);
-                startActivity(intent);
-            }
+        imageView.setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), ProfileActivity.class);
+            startActivity(intent);
         });
 
         return view;
     }
 
     private void loadPosts() {
-        firestore.collection("posts").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (DocumentChange documentChange : task.getResult().getDocumentChanges()) {
-                    if (documentChange.getType() == DocumentChange.Type.ADDED) {
-                        Post post = documentChange.getDocument().toObject(Post.class);
-                        postList.add(0, post);
-                        postAdapter.notifyItemInserted(0);
-                        recyclerView.scrollToPosition(0);
+        if (firestore != null) {
+            firestore.collection("posts").get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    for (DocumentChange documentChange : task.getResult().getDocumentChanges()) {
+                        if (documentChange.getType() == DocumentChange.Type.ADDED) {
+                            Post post = documentChange.getDocument().toObject(Post.class);
+                            if (post != null) {
+                                postList.add(0, post);
+                                postAdapter.notifyItemInserted(0);
+                                recyclerView.scrollToPosition(0);
+                            }
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
     }
-
 
     @Override
     public void onPostOptionsClicked(View view, int position, Post post) {
@@ -91,8 +91,6 @@ public class HomeFragment extends Fragment implements PostAdapter.OnPostOptionsC
             showOtherOptionsMenu(view, position);
         }
     }
-
-
 
     private void showPostOptionsMenu(View view, int position) {
         PopupMenu popupMenu = new PopupMenu(requireContext(), view);
@@ -131,13 +129,20 @@ public class HomeFragment extends Fragment implements PostAdapter.OnPostOptionsC
 
     private void deletePost(int position) {
         Post post = postList.get(position);
-        firestore.collection("posts").document(post.getPostId()).delete()
-                .addOnSuccessListener(aVoid -> {
-                    postList.remove(position);
-                    postAdapter.notifyItemRemoved(position);
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(requireContext(), "Failed to delete post: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                });
+        String postId = post.getPostId(); // Get postId from the post object
+
+        if (postId != null) { // Check if postId is not null
+            firestore.collection("posts").document(postId).delete()
+                    .addOnSuccessListener(aVoid -> {
+                        postList.remove(position);
+                        postAdapter.notifyItemRemoved(position);
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(requireContext(), "Failed to delete post: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
+        } else {
+            Toast.makeText(requireContext(), "Post ID is null, unable to delete post", Toast.LENGTH_SHORT).show();
+        }
     }
+
 }

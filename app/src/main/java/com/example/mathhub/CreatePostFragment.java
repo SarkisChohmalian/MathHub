@@ -67,9 +67,13 @@ public class CreatePostFragment extends Fragment {
 
         String creatorUserId = currentUser.getUid();
 
-        Post post = new Post(title, description, userId, creatorUserId);
 
-        firestore.collection("posts").add(post)
+        String postId = firestore.collection("posts").document().getId();
+
+        Post post = new Post(title, description, userId, creatorUserId);
+        post.setPostId(postId);
+
+        firestore.collection("posts").document(postId).set(post)
                 .addOnSuccessListener(documentReference -> {
                     editTextTitle.setText("");
                     editTextDescription.setText("");
