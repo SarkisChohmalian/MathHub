@@ -11,18 +11,11 @@
     <!-- TODO: Update blank fragment layout -->
 
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="340dp"
-        android:layout_height="50dp"
-        android:src="@drawable/person_icon"/>
-
     <TextView
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="250dp"
         android:layout_marginBottom="-30dp"
         android:text="The Problem of the week is"
         android:gravity="center"

@@ -60,8 +60,8 @@ public class CreatePostFragment extends Fragment {
             return;
         }
 
-        if (description.isEmpty() || description.length() < 10) {
-            editTextDescription.setError("Description must be at least 10 characters long");
+        if (description.isEmpty() || description.length() < 5) {
+            editTextDescription.setError("Description must be at least 5 characters long");
             return;
         }
 
