@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".LearnFragment">
 
     <ImageView
-        android:layout_marginTop="10dp"
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
-        android:layout_marginStart="320dp"
         android:layout_height="50dp"
-        android:src="@drawable/person_icon"/>
+        android:layout_marginStart="320dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/person_icon" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -27,99 +26,109 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/first_concept"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/first_concept"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="8dp"
                     android:text="Diophantine Equations"
-                    android:textSize="20sp"
                     android:textColor="@color/black"
-                    android:padding="8dp"/>
+                    android:textSize="20sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="2"
                     android:ellipsize="end"
+                    android:maxLines="2"
+                    android:padding="8dp"
                     android:text="Polynomial equations with integer solutions."
-                    android:textSize="16sp"
                     android:textColor="@color/black"
-                    android:padding="8dp"/>
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/light_gray"/>
+                android:background="@color/light_gray" />
 
             <LinearLayout
-                android:id="@+id/second_concept"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/second_concept"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="8dp"
                     android:text="Mathematical Induction"
-                    android:textSize="20sp"
                     android:textColor="@color/black"
-                    android:padding="8dp"/>
+                    android:textSize="20sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="2"
                     android:ellipsize="end"
+                    android:maxLines="2"
+                    android:padding="8dp"
                     android:text="Proof technique for statements about integers."
-                    android:textSize="16sp"
                     android:textColor="@color/black"
-                    android:padding="8dp"/>
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/light_gray"/>
+                android:background="@color/light_gray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/third_concept"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="8dp"
                     android:text="Bézout's Theorem"
-                    android:textSize="20sp"
                     android:textColor="@color/black"
-                    android:padding="8dp"/>
+                    android:textSize="20sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="2"
                     android:ellipsize="end"
+                    android:maxLines="2"
+                    android:padding="8dp"
                     android:text="Relates to integer solutions of linear equations."
-                    android:textSize="16sp"
                     android:textColor="@color/black"
-                    android:padding="8dp"/>
+                    android:textSize="16sp" />
+
 
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/light_gray"/>
+                android:background="@color/light_gray" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:text="More will be added Soon"
+                android:layout_gravity="center"
+                android:textColor="@color/grey"/>
 
 
         </LinearLayout>

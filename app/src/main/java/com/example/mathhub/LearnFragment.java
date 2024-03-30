@@ -1,13 +1,11 @@
 package com.example.mathhub;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-
 import androidx.fragment.app.Fragment;
+import android.content.Intent;
 
 public class LearnFragment extends Fragment {
 
@@ -16,17 +14,42 @@ public class LearnFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_learn, container, false);
 
-        ImageView imageView = view.findViewById(R.id.imageView2);
-
-        imageView.setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.first_concept).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create an Intent to navigate to ProfileActivity
-                Intent intent = new Intent(getActivity(), ProfileActivity.class);
-                startActivity(intent);
+                navigateToDiophantineActivity();
+            }
+        });
+
+        view.findViewById(R.id.second_concept).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToInductionActivity();
+            }
+        });
+
+        view.findViewById(R.id.third_concept).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToBezoutActivity();
             }
         });
 
         return view;
+    }
+
+    public void navigateToDiophantineActivity() {
+        Intent intent = new Intent(getActivity(), DiophantineActivity.class);
+        startActivity(intent);
+    }
+
+    public void navigateToInductionActivity() {
+        Intent intent = new Intent(getActivity(), InductionActivity.class);
+        startActivity(intent);
+    }
+
+    public void navigateToBezoutActivity() {
+        Intent intent = new Intent(getActivity(), BezoutActivity.class);
+        startActivity(intent);
     }
 }
