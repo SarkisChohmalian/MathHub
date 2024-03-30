@@ -1,22 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".PolicyActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Privacy Policy"
+            android:textSize="24sp"
+            android:layout_marginStart="50dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:padding="16dp"/>
+    </LinearLayout>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="I will add later"
-        android:textSize="30dp"
-        android:layout_gravity="center"
-        android:layout_marginLeft="120dp"
-        android:textColor="@color/black"/>
+        android:text="Information Collection and Use"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:padding="8dp"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:textColor="@color/grey"
+        android:layout_height="wrap_content"
+        android:text="We collect personal identification information from Users when they use our App. This information is used to personalize user experience, improve our App, and respond to inquiries."
+        android:padding="8dp"/>
+
+    <TextView
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="How We Protect Your Information"
+        android:textSize="18sp"
+        android:padding="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:textColor="@color/grey"
+        android:layout_height="wrap_content"
+        android:text="We use appropriate security measures to protect against unauthorized access, alteration, disclosure, or destruction of personal information."
+        android:padding="8dp"/>
+
+    <TextView
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sharing Your Personal Information"
+        android:textSize="18sp"
+        android:padding="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:textColor="@color/grey"
+        android:layout_height="wrap_content"
+        android:text="We do not sell, trade, or rent Users' personal identification information to others. Generic aggregated demographic information may be shared with trusted partners for analysis."
+        android:padding="8dp"/>
+
+    <TextView
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Changes to This Privacy Policy"
+        android:textSize="18sp"
+        android:padding="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:textColor="@color/grey"
+        android:layout_height="wrap_content"
+        android:text="We may update our privacy policy from time to time. Users are encouraged to check this page frequently for any changes."
+        android:padding="8dp"/>
+
+    <TextView
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your Acceptance of These Terms"
+        android:textSize="18sp"
+        android:padding="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/grey"
+        android:text="By using our App, you signify your acceptance of this policy."
+        android:padding="8dp"/>
+
+    <TextView
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Contacting Us"
+        android:textSize="18sp"
+        android:padding="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:textColor="@color/grey"
+        android:layout_height="wrap_content"
+        android:text="If you have any questions about this Privacy Policy, please contact us at sarkis.chohmalian@gmail.com."
+        android:padding="8dp"/>
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/grey"
+        android:text="Last updated: March 30, 2024."
+        android:textSize="14sp"
+        android:padding="8dp"/>
 
 </LinearLayout>

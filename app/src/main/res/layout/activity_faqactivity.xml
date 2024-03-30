@@ -1,51 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
+    android:id="@+id/main2"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".FAQActivity">
 
+    <ImageView
+        android:id="@+id/back2"
+        android:layout_width="50dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/back" />
+
     <TextView
+        android:layout_marginTop="10dp"
         android:id="@+id/question1"
-        android:layout_width="wrap_content"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="What is MathHub?"
-        android:textSize="30dp"
+        android:text="1) What is the in-app calculator for?"
+        android:padding="16dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        android:textSize="18sp"
+        />
 
     <TextView
         android:id="@+id/answer1"
-        android:layout_width="wrap_content"
+        android:textColor="@color/grey"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="MathHub is a mobile application designed to help users improve their math skills through interactive lessons, quizzes, and other educational resources."
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/question1"
-        tools:ignore="MissingConstraints" />
+        android:text="The in-app calculator in AskMath allows users to perform quick calculations without switching apps, enhancing convenience and efficiency."
+        android:padding="16dp"
+        />
 
     <TextView
+        android:textColor="@color/black"
         android:id="@+id/question2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="i will add questions later"
+        android:text="2) How can AskMath benefit students and learners?"
+        android:padding="16dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/answer1"
-        tools:ignore="MissingConstraints" />
+        android:textSize="18sp"
+        />
 
     <TextView
         android:id="@+id/answer2"
-        android:layout_width="wrap_content"
+        android:textColor="@color/grey"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="later"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/question2"
-        tools:ignore="MissingConstraints" />
+        android:text="AskMath offers a variety of educational resources in one place, simplifying learning and improving academic performance."
+        android:padding="16dp"
+        />
 
+    <TextView
+        android:textColor="@color/black"
+        android:id="@+id/question3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="3) Is AskMath suitable for users of all proficiency levels in mathematics?"
+        android:padding="16dp"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/answer3"
+        android:textColor="@color/grey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Yes, AskMath caters to learners at all levels, providing customizable content to support individual learning needs."
+        android:padding="16dp"
+        />
+
+    <TextView
+        android:textColor="@color/black"
+        android:id="@+id/question4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="4) Can I track my progress and performance on AskMath?"
+        android:padding="16dp"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        />
+
+    <TextView
+        android:id="@+id/answer4"
+        android:textColor="@color/grey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Yes, AskMath will feature personalized dashboards to monitor progress and achievements soon."
+        android:padding="16dp"
+        />
+
+</LinearLayout>
