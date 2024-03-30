@@ -7,17 +7,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class CreatePostFragment extends Fragment {
     private EditText editTextTitle, editTextDescription;
     private Button buttonPost;
     private FirebaseFirestore firestore;
+    private FirebaseAuth firebaseAuth;
 
     @Nullable
     @Override
@@ -29,6 +32,7 @@ public class CreatePostFragment extends Fragment {
         buttonPost = view.findViewById(R.id.button_post);
 
         firestore = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
         buttonPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,6 +48,13 @@ public class CreatePostFragment extends Fragment {
         String title = editTextTitle.getText().toString().trim();
         String description = editTextDescription.getText().toString().trim();
 
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if (currentUser == null) {
+            return;
+        }
+
+        String userId = currentUser.getUid();
+
         if (title.isEmpty() || title.length() < 2) {
             editTextTitle.setError("Title must be at least 2 characters long");
             return;
@@ -54,18 +65,22 @@ public class CreatePostFragment extends Fragment {
             return;
         }
 
-        // Create a new post object without postId
-        Post post = new Post(title, description);
+        String creatorUserId = currentUser.getUid();
 
-        // Add the post to Firestore
+        Post post = new Post(title, description, userId, creatorUserId);
+
         firestore.collection("posts").add(post)
                 .addOnSuccessListener(documentReference -> {
                     editTextTitle.setText("");
                     editTextDescription.setText("");
-                    Toast.makeText(requireContext(), "Post added successfully", Toast.LENGTH_SHORT).show();
+                    if (getContext() != null) {
+                        Toast.makeText(getContext(), "Post added successfully", Toast.LENGTH_SHORT).show();
+                    }
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(requireContext(), "Failed to add post: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    if (getContext() != null) {
+                        Toast.makeText(getContext(), "Failed to add post: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 });
     }
 }

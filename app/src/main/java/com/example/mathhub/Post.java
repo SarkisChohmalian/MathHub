@@ -4,20 +4,19 @@ public class Post {
     private String postId;
     private String title;
     private String description;
+    private String userId;
+    private String creatorUserId;
+
 
     public Post() {
     }
 
-    public Post(String postId, String title, String description) {
-        this.postId = postId;
+
+    public Post(String title, String description, String userId, String creatorUserId) {
         this.title = title;
         this.description = description;
-    }
-
-    public Post(String title, String description) {
-        this.title = title;
-        this.description = description;
-
+        this.userId = userId;
+        this.creatorUserId = creatorUserId;
     }
 
 
@@ -43,5 +42,21 @@ public class Post {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getCreatorUserId() {
+        return creatorUserId;
+    }
+
+    public void setCreatorUserId(String creatorUserId) {
+        this.creatorUserId = creatorUserId;
     }
 }
