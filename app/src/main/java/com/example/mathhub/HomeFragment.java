@@ -1,9 +1,9 @@
 package com.example.mathhub;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,6 +32,9 @@ public class HomeFragment extends Fragment implements PostAdapter.OnPostOptionsC
     private PostAdapter postAdapter;
     private FirebaseFirestore firestore;
     private String currentUserId;
+    private int selectedItemPosition;
+    private static final int EDIT_POST_REQUEST = 1;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,6 +64,9 @@ public class HomeFragment extends Fragment implements PostAdapter.OnPostOptionsC
             startActivity(intent);
         });
 
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setOnRefreshListener(this::loadPosts);
+
         return view;
     }
 
@@ -67,16 +74,22 @@ public class HomeFragment extends Fragment implements PostAdapter.OnPostOptionsC
         if (firestore != null) {
             firestore.collection("posts").get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
+                    List<Post> newPostList = new ArrayList<>(); // Create a new list to hold the new data
                     for (DocumentChange documentChange : task.getResult().getDocumentChanges()) {
                         if (documentChange.getType() == DocumentChange.Type.ADDED) {
                             Post post = documentChange.getDocument().toObject(Post.class);
                             if (post != null) {
-                                postList.add(0, post);
-                                postAdapter.notifyItemInserted(0);
-                                recyclerView.scrollToPosition(0);
+                                newPostList.add(0, post); // Add new items to the new list
                             }
                         }
                     }
+                    postList.clear(); // Clear the old list
+                    postList.addAll(newPostList); // Add all items from the new list to the old list
+                    postAdapter.notifyDataSetChanged(); // Notify the adapter of the data change
+                    swipeRefreshLayout.setRefreshing(false); // Stop the refreshing animation
+                } else {
+                    Toast.makeText(requireContext(), "Failed to load posts: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    swipeRefreshLayout.setRefreshing(false); // Stop the refreshing animation
                 }
             });
         }
@@ -84,6 +97,7 @@ public class HomeFragment extends Fragment implements PostAdapter.OnPostOptionsC
 
     @Override
     public void onPostOptionsClicked(View view, int position, Post post) {
+        selectedItemPosition = position;
         if (post != null && post.getCreatorUserId() != null && currentUserId != null
                 && post.getCreatorUserId().equals(currentUserId)) {
             showPostOptionsMenu(view, position);
@@ -98,10 +112,14 @@ public class HomeFragment extends Fragment implements PostAdapter.OnPostOptionsC
         popupMenu.setOnMenuItemClickListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.action_edit) {
-                // Implement edit functionality
+                Post post = postList.get(selectedItemPosition);
+                Intent intent = new Intent(requireContext(), EditPostActivity.class);
+                intent.putExtra("postId", post.getPostId());
+                intent.putExtra("title", post.getTitle());
+                intent.putExtra("description", post.getDescription());
+                startActivityForResult(intent, EDIT_POST_REQUEST);
                 return true;
             } else if (itemId == R.id.action_delete) {
-                // Implement delete functionality
                 deletePost(position);
                 return true;
             }
@@ -116,10 +134,8 @@ public class HomeFragment extends Fragment implements PostAdapter.OnPostOptionsC
         popupMenu.setOnMenuItemClickListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.action_report) {
-                // Implement report functionality
                 return true;
             } else if (itemId == R.id.action_rate) {
-                // Implement rate functionality
                 return true;
             }
             return false;
@@ -129,9 +145,9 @@ public class HomeFragment extends Fragment implements PostAdapter.OnPostOptionsC
 
     private void deletePost(int position) {
         Post post = postList.get(position);
-        String postId = post.getPostId(); // Get postId from the post object
+        String postId = post.getPostId();
 
-        if (postId != null) { // Check if postId is not null
+        if (postId != null) {
             firestore.collection("posts").document(postId).delete()
                     .addOnSuccessListener(aVoid -> {
                         postList.remove(position);
@@ -145,4 +161,28 @@ public class HomeFragment extends Fragment implements PostAdapter.OnPostOptionsC
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == EDIT_POST_REQUEST && resultCode == Activity.RESULT_OK) {
+            if (data != null) {
+                String postId = data.getStringExtra("postId");
+                String title = data.getStringExtra("title");
+                String description = data.getStringExtra("description");
+                updateEditedPost(postId, title, description);
+            }
+        }
+    }
+
+    private void updateEditedPost(String postId, String title, String description) {
+        for (int i = 0; i < postList.size(); i++) {
+            Post post = postList.get(i);
+            if (post.getPostId().equals(postId)) {
+                post.setTitle(title);
+                post.setDescription(description);
+                postAdapter.notifyItemChanged(i);
+                break;
+            }
+        }
+    }
 }
