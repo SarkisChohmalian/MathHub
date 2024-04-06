@@ -74,22 +74,22 @@ public class HomeFragment extends Fragment implements PostAdapter.OnPostOptionsC
         if (firestore != null) {
             firestore.collection("posts").get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    List<Post> newPostList = new ArrayList<>(); // Create a new list to hold the new data
+                    List<Post> newPostList = new ArrayList<>();
                     for (DocumentChange documentChange : task.getResult().getDocumentChanges()) {
                         if (documentChange.getType() == DocumentChange.Type.ADDED) {
                             Post post = documentChange.getDocument().toObject(Post.class);
                             if (post != null) {
-                                newPostList.add(0, post); // Add new items to the new list
+                                newPostList.add(0, post); 
                             }
                         }
                     }
-                    postList.clear(); // Clear the old list
-                    postList.addAll(newPostList); // Add all items from the new list to the old list
-                    postAdapter.notifyDataSetChanged(); // Notify the adapter of the data change
-                    swipeRefreshLayout.setRefreshing(false); // Stop the refreshing animation
+                    postList.clear();
+                    postList.addAll(newPostList);
+                    postAdapter.notifyDataSetChanged();
+                    swipeRefreshLayout.setRefreshing(false);
                 } else {
                     Toast.makeText(requireContext(), "Failed to load posts: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                    swipeRefreshLayout.setRefreshing(false); // Stop the refreshing animation
+                    swipeRefreshLayout.setRefreshing(false);
                 }
             });
         }
