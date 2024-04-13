@@ -1,17 +1,19 @@
 package com.example.mathhub;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -79,7 +81,7 @@ public class HomeFragment extends Fragment implements PostAdapter.OnPostOptionsC
                         if (documentChange.getType() == DocumentChange.Type.ADDED) {
                             Post post = documentChange.getDocument().toObject(Post.class);
                             if (post != null) {
-                                newPostList.add(0, post); 
+                                newPostList.add(0, post);
                             }
                         }
                     }
@@ -134,14 +136,53 @@ public class HomeFragment extends Fragment implements PostAdapter.OnPostOptionsC
         popupMenu.setOnMenuItemClickListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.action_report) {
+                showReportDialog(postList.get(position).getPostId());
                 return true;
             } else if (itemId == R.id.action_rate) {
+                // Your existing code for action_rate
                 return true;
             }
             return false;
         });
         popupMenu.show();
     }
+
+    private void showReportDialog(String postId) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        LayoutInflater inflater = requireActivity().getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.report_dialog, null);
+        builder.setView(dialogView);
+
+        EditText editTextReportReason = dialogView.findViewById(R.id.editTextReportReason);
+
+        builder.setPositiveButton("Submit", (dialog, which) -> {
+            String reportReason = editTextReportReason.getText().toString().trim();
+            if (!reportReason.isEmpty()) {
+                submitReport(postId, reportReason);
+            } else {
+                Toast.makeText(requireContext(), "Please provide a reason for reporting", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+
+        builder.show();
+    }
+
+    private void submitReport(String postId, String reportReason) {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String reporterId = currentUser.getUid();
+            Report report = new Report(postId, reporterId, reportReason);
+            FirebaseFirestore.getInstance().collection("Reports").add(report)
+                    .addOnSuccessListener(documentReference -> {
+                        Toast.makeText(requireContext(), "Report submitted successfully", Toast.LENGTH_SHORT).show();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(requireContext(), "Failed to submit report: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
+        }
+    }
+
 
     private void deletePost(int position) {
         Post post = postList.get(position);
