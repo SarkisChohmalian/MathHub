@@ -1,5 +1,6 @@
 package com.example.mathhub;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,18 +9,20 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class EditPostActivity extends AppCompatActivity {
 
     private EditText editTextTitle, editTextDescription;
-    private Button buttonSave;
+    private Button buttonSave, buttonGoBack;
 
     private String postId;
 
     private FirebaseFirestore firestore;
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,12 +31,12 @@ public class EditPostActivity extends AppCompatActivity {
         editTextTitle = findViewById(R.id.editTextTitle);
         editTextDescription = findViewById(R.id.editTextDescription);
         buttonSave = findViewById(R.id.buttonSave);
+        buttonGoBack = findViewById(R.id.goback234);
 
         postId = getIntent().getStringExtra("postId");
 
         firestore = FirebaseFirestore.getInstance();
 
-        // Populate EditText fields with post data
         String title = getIntent().getStringExtra("title");
         String description = getIntent().getStringExtra("description");
         editTextTitle.setText(title);
@@ -43,6 +46,13 @@ public class EditPostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveChanges();
+            }
+        });
+
+        buttonGoBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }
@@ -58,7 +68,6 @@ public class EditPostActivity extends AppCompatActivity {
                         finish();
                     })
                     .addOnFailureListener(e -> {
-                        // Failed to update post
                     });
         }
     }

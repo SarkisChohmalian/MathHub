@@ -1,11 +1,12 @@
 package com.example.mathhub;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import androidx.fragment.app.Fragment;
-import android.content.Intent;
 
 public class LearnFragment extends Fragment {
 
@@ -35,6 +36,14 @@ public class LearnFragment extends Fragment {
             }
         });
 
+        ImageView imageViewProfile = view.findViewById(R.id.imageView2);
+        imageViewProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToProfileActivity();
+            }
+        });
+
         return view;
     }
 
@@ -50,6 +59,11 @@ public class LearnFragment extends Fragment {
 
     public void navigateToBezoutActivity() {
         Intent intent = new Intent(getActivity(), BezoutActivity.class);
+        startActivity(intent);
+    }
+
+    public void navigateToProfileActivity() {
+        Intent intent = new Intent(getActivity(), ProfileActivity.class);
         startActivity(intent);
     }
 }
