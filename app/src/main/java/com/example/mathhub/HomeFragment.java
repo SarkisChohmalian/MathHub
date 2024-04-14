@@ -1,11 +1,14 @@
 package com.example.mathhub;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -69,6 +72,7 @@ public class HomeFragment extends Fragment implements PostAdapter.OnPostOptionsC
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(this::loadPosts);
 
+
         return view;
     }
 
@@ -96,6 +100,7 @@ public class HomeFragment extends Fragment implements PostAdapter.OnPostOptionsC
             });
         }
     }
+
 
     @Override
     public void onPostOptionsClicked(View view, int position, Post post) {
@@ -139,7 +144,7 @@ public class HomeFragment extends Fragment implements PostAdapter.OnPostOptionsC
                 showReportDialog(postList.get(position).getPostId());
                 return true;
             } else if (itemId == R.id.action_rate) {
-                // Your existing code for action_rate
+                //code for rate
                 return true;
             }
             return false;
@@ -182,7 +187,6 @@ public class HomeFragment extends Fragment implements PostAdapter.OnPostOptionsC
                     });
         }
     }
-
 
     private void deletePost(int position) {
         Post post = postList.get(position);

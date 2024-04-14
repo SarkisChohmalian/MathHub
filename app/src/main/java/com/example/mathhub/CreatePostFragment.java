@@ -18,10 +18,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class CreatePostFragment extends Fragment {
     private EditText editTextTitle, editTextDescription;
-    private Button buttonPost;
+    private Button buttonPost, buttonBeginner, buttonAdvanced, buttonAmateur, buttonElite;
     private FirebaseFirestore firestore;
     private FirebaseAuth firebaseAuth;
     private boolean isPosting = false;
+    private String selectedDifficulty = "";
 
     @Nullable
     @Override
@@ -30,8 +31,14 @@ public class CreatePostFragment extends Fragment {
         editTextTitle = view.findViewById(R.id.editTextTitle);
         editTextDescription = view.findViewById(R.id.editTextDescription);
         buttonPost = view.findViewById(R.id.button_post);
+        buttonBeginner = view.findViewById(R.id.Beginner);
+        buttonAdvanced = view.findViewById(R.id.Advanced);
+        buttonAmateur = view.findViewById(R.id.Amateur);
+        buttonElite = view.findViewById(R.id.Elite);
+
         firestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
+
         buttonPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,6 +49,35 @@ public class CreatePostFragment extends Fragment {
                 postQuestion();
             }
         });
+
+        buttonBeginner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedDifficulty = "Beginner";
+            }
+        });
+
+        buttonAdvanced.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedDifficulty = "Advanced";
+            }
+        });
+
+        buttonAmateur.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedDifficulty = "Amateur";
+            }
+        });
+
+        buttonElite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedDifficulty = "Elite";
+            }
+        });
+
         return view;
     }
 
@@ -64,10 +100,17 @@ public class CreatePostFragment extends Fragment {
             isPosting = false;
             return;
         }
+        if (selectedDifficulty.isEmpty()) {
+            Toast.makeText(getContext(), "Please select a difficulty level", Toast.LENGTH_SHORT).show();
+            isPosting = false;
+            return;
+        }
         String creatorUserId = currentUser.getUid();
         String postId = firestore.collection("posts").document().getId();
         Post post = new Post(title, description, userId, creatorUserId);
         post.setPostId(postId);
+        post.setDifficultyLevel(selectedDifficulty);
+
         firestore.collection("posts").document(postId).set(post)
                 .addOnSuccessListener(documentReference -> {
                     editTextTitle.setText("");
@@ -85,4 +128,5 @@ public class CreatePostFragment extends Fragment {
                 });
     }
 }
+
 

@@ -12,6 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
+
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
 
     private List<Post> postList;
@@ -42,6 +54,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         return postList.size();
     }
 
+    public void setPosts(List<Post> posts) {
+        postList.clear();
+        postList.addAll(posts);
+        notifyDataSetChanged();
+    }
+
     public class PostViewHolder extends RecyclerView.ViewHolder {
 
         private TextView titleTextView;
@@ -68,8 +86,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         }
     }
 
-
     public interface OnPostOptionsClickListener {
         void onPostOptionsClicked(View view, int position, Post post);
     }
 }
+

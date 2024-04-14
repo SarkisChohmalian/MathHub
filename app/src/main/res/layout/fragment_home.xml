@@ -12,21 +12,38 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="end"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="21dp"
-            android:src="@drawable/person_icon" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+<!--            <Button-->
+<!--                android:id="@+id/choosedif"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="20dp"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:backgroundTint="@color/blue"-->
+<!--                android:text="chose difficulty" />-->
+
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="330dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/person_icon" />
+
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginTop="15dp" />
+            android:layout_marginTop="15dp"
+            android:layout_weight="1" />
 
     </LinearLayout>
 
