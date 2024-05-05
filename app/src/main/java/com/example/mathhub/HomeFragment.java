@@ -143,9 +143,6 @@ public class HomeFragment extends Fragment implements PostAdapter.OnPostOptionsC
             if (itemId == R.id.action_report) {
                 showReportDialog(postList.get(position).getPostId());
                 return true;
-            } else if (itemId == R.id.action_rate) {
-                //code for rate
-                return true;
             }
             return false;
         });
