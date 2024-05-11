@@ -1,14 +1,12 @@
 package com.example.mathhub;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -72,7 +70,6 @@ public class HomeFragment extends Fragment implements PostAdapter.OnPostOptionsC
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setOnRefreshListener(this::loadPosts);
 
-
         return view;
     }
 
@@ -100,7 +97,6 @@ public class HomeFragment extends Fragment implements PostAdapter.OnPostOptionsC
             });
         }
     }
-
 
     @Override
     public void onPostOptionsClicked(View view, int position, Post post) {
@@ -141,7 +137,8 @@ public class HomeFragment extends Fragment implements PostAdapter.OnPostOptionsC
         popupMenu.setOnMenuItemClickListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.action_report) {
-                showReportDialog(postList.get(position).getPostId());
+                Post post = postList.get(position);
+                showReportDialog(post.getPostId(), post.getTitle(), post.getDescription());
                 return true;
             }
             return false;
@@ -149,7 +146,7 @@ public class HomeFragment extends Fragment implements PostAdapter.OnPostOptionsC
         popupMenu.show();
     }
 
-    private void showReportDialog(String postId) {
+    private void showReportDialog(String postId, String postTitle, String postDescription) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.report_dialog, null);
@@ -160,7 +157,7 @@ public class HomeFragment extends Fragment implements PostAdapter.OnPostOptionsC
         builder.setPositiveButton("Submit", (dialog, which) -> {
             String reportReason = editTextReportReason.getText().toString().trim();
             if (!reportReason.isEmpty()) {
-                submitReport(postId, reportReason);
+                submitReport(postId, postTitle, postDescription, reportReason);
             } else {
                 Toast.makeText(requireContext(), "Please provide a reason for reporting", Toast.LENGTH_SHORT).show();
             }
@@ -170,12 +167,12 @@ public class HomeFragment extends Fragment implements PostAdapter.OnPostOptionsC
         builder.show();
     }
 
-    private void submitReport(String postId, String reportReason) {
+    private void submitReport(String postId, String postTitle, String postDescription, String reportReason) {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if (currentUser != null) {
             String reporterId = currentUser.getUid();
-            Report report = new Report(postId, reporterId, reportReason);
-            FirebaseFirestore.getInstance().collection("Reports").add(report)
+            Report report = new Report(postId, postTitle, postDescription, reporterId, reportReason);
+            FirebaseFirestore.getInstance().collection("reports").add(report)
                     .addOnSuccessListener(documentReference -> {
                         Toast.makeText(requireContext(), "Report submitted successfully", Toast.LENGTH_SHORT).show();
                     })
@@ -200,31 +197,6 @@ public class HomeFragment extends Fragment implements PostAdapter.OnPostOptionsC
                     });
         } else {
             Toast.makeText(requireContext(), "Post ID is null, unable to delete post", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == EDIT_POST_REQUEST && resultCode == Activity.RESULT_OK) {
-            if (data != null) {
-                String postId = data.getStringExtra("postId");
-                String title = data.getStringExtra("title");
-                String description = data.getStringExtra("description");
-                updateEditedPost(postId, title, description);
-            }
-        }
-    }
-
-    private void updateEditedPost(String postId, String title, String description) {
-        for (int i = 0; i < postList.size(); i++) {
-            Post post = postList.get(i);
-            if (post.getPostId().equals(postId)) {
-                post.setTitle(title);
-                post.setDescription(description);
-                postAdapter.notifyItemChanged(i);
-                break;
-            }
         }
     }
 }

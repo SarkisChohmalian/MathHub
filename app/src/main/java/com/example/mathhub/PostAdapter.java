@@ -1,17 +1,7 @@
 package com.example.mathhub;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.PopupMenu;
-import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.List;
-
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,18 +55,39 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         private TextView titleTextView;
         private TextView descriptionTextView;
         private ImageView threeDots;
+        private TextView replyText;
+        private ImageView replyPic;
 
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.titleTextView);
             descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
             threeDots = itemView.findViewById(R.id.three_dots);
+            replyText = itemView.findViewById(R.id.reply_text);
+            replyPic = itemView.findViewById(R.id.reply_pic);
 
             threeDots.setOnClickListener(v -> {
                 if (optionsClickListener != null) {
                     optionsClickListener.onPostOptionsClicked(v, getAdapterPosition(), postList.get(getAdapterPosition()));
                 }
             });
+
+            replyText.setOnClickListener(v -> {
+                Context context = v.getContext();
+                Intent intent = new Intent(context, CommentsActivity.class);
+                String postId = postList.get(getAdapterPosition()).getPostId();
+                intent.putExtra("postId", postId);
+                context.startActivity(intent);
+            });
+
+            replyPic.setOnClickListener(v -> {
+                Context context = v.getContext();
+                Intent intent = new Intent(context, CommentsActivity.class);
+                String postId = postList.get(getAdapterPosition()).getPostId();
+                intent.putExtra("postId", postId);
+                context.startActivity(intent);
+            });
+
         }
 
         public void bind(Post post) {
@@ -90,4 +101,3 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         void onPostOptionsClicked(View view, int position, Post post);
     }
 }
-
