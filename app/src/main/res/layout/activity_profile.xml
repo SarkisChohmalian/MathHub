@@ -28,7 +28,7 @@
             android:id="@+id/settings"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginLeft="320dp"
+            android:layout_marginLeft="620dp"
             android:layout_marginTop="12dp"
             android:src="@drawable/settings_image" />
 
@@ -79,16 +79,14 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black"/>
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="150dp"
-        android:text="0 posts"
-        android:textSize="30dp"
-        android:textColor="@color/black" />
+
 
 
 </LinearLayout>
