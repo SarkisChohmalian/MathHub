@@ -1,14 +1,10 @@
 package com.example.mathhub;
 
-import com.google.firebase.database.PropertyName;
-
 public class Comment {
 
-    @PropertyName("userId")
     private String userId;
-
-    @PropertyName("text")
     private String text;
+    private String documentId;
 
     public Comment() {
     }
@@ -32,5 +28,13 @@ public class Comment {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getDocumentId() {
+        return documentId;
+    }
+
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
     }
 }

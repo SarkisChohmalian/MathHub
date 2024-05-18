@@ -75,16 +75,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             replyText.setOnClickListener(v -> {
                 Context context = v.getContext();
                 Intent intent = new Intent(context, CommentsActivity.class);
-                String postId = postList.get(getAdapterPosition()).getPostId();
-                intent.putExtra("postId", postId);
+                Post post = postList.get(getAdapterPosition());
+                intent.putExtra("postId", post.getPostId());
+                intent.putExtra("postCreatorId", post.getCreatorUserId());
                 context.startActivity(intent);
             });
 
             replyPic.setOnClickListener(v -> {
                 Context context = v.getContext();
                 Intent intent = new Intent(context, CommentsActivity.class);
-                String postId = postList.get(getAdapterPosition()).getPostId();
-                intent.putExtra("postId", postId);
+                Post post = postList.get(getAdapterPosition());
+                intent.putExtra("postId", post.getPostId());
+                intent.putExtra("postCreatorId", post.getCreatorUserId());
                 context.startActivity(intent);
             });
 
@@ -101,3 +103,4 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         void onPostOptionsClicked(View view, int position, Post post);
     }
 }
+

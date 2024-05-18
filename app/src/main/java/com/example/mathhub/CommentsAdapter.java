@@ -3,7 +3,10 @@ package com.example.mathhub;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,9 +16,11 @@ import java.util.List;
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.CommentViewHolder> {
 
     private List<Comment> commentList;
+    private OnCommentActionListener commentActionListener;
 
-    public CommentsAdapter(List<Comment> commentList) {
+    public CommentsAdapter(List<Comment> commentList, OnCommentActionListener commentActionListener) {
         this.commentList = commentList;
+        this.commentActionListener = commentActionListener;
     }
 
     @NonNull
@@ -39,14 +44,77 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     public class CommentViewHolder extends RecyclerView.ViewHolder {
 
         private TextView commentTextView;
+        private ImageView threeDots;
 
         public CommentViewHolder(@NonNull View itemView) {
             super(itemView);
             commentTextView = itemView.findViewById(R.id.commentTextView);
+            threeDots = itemView.findViewById(R.id.threedots);
         }
 
         public void bind(Comment comment) {
             commentTextView.setText(comment.getText());
+            threeDots.setOnClickListener(v -> {
+                if (commentActionListener != null && commentActionListener.getPostCreatorId() != null && comment.getUserId() != null) {
+                    String currentUserId = commentActionListener.getCurrentUserId();
+                    String postCreatorId = commentActionListener.getPostCreatorId();
+                    if (currentUserId != null && currentUserId.equals(comment.getUserId())) {
+                        // Show options for comment creator
+                        showPopupMenu(v, comment);
+                    } else if (currentUserId != null && currentUserId.equals(postCreatorId)) {
+                        // Show options for post creator
+                        showPopupMenu(v, comment);
+                    } else {
+                        // Show options for other users
+                        Toast.makeText(v.getContext(), "Options for other users", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    // Handle null objects
+                    Toast.makeText(v.getContext(), "Error: Null object reference", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
+
+        private void showPopupMenu(View view, Comment comment) {
+            PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
+
+            String currentUserId = commentActionListener.getCurrentUserId();
+            String postCreatorId = commentActionListener.getPostCreatorId();
+
+            if (currentUserId != null && postCreatorId != null && comment.getUserId() != null) {
+                // Check if the current user is the comment creator or the post creator
+                if (currentUserId.equals(comment.getUserId()) || currentUserId.equals(postCreatorId)) {
+                    popupMenu.inflate(R.menu.post_options_menu); // This menu should have "Edit" and "Delete" options
+                } else {
+                    popupMenu.inflate(R.menu.menu_post_options2); // This menu should have the "Report" option
+                }
+
+                popupMenu.setOnMenuItemClickListener(item -> {
+                    if (item.getItemId() == R.id.action_edit) {
+                        commentActionListener.onEditComment(comment);
+                        return true;
+                    } else if (item.getItemId() == R.id.action_delete) {
+                        commentActionListener.onDeleteComment(comment);
+                        return true;
+                    } else if (item.getItemId() == R.id.action_report) {
+                        commentActionListener.onReportComment(comment);
+                        return true;
+                    }
+                    return false;
+                });
+                popupMenu.show();
+            } else {
+                // Handle null objects
+                Toast.makeText(view.getContext(), "Error: Null object reference", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public interface OnCommentActionListener {
+        String getCurrentUserId();
+        String getPostCreatorId();
+        void onEditComment(Comment comment);
+        void onDeleteComment(Comment comment);
+        void onReportComment(Comment comment);
     }
 }
