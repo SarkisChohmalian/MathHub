@@ -59,17 +59,13 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
                     String currentUserId = commentActionListener.getCurrentUserId();
                     String postCreatorId = commentActionListener.getPostCreatorId();
                     if (currentUserId != null && currentUserId.equals(comment.getUserId())) {
-                        // Show options for comment creator
                         showPopupMenu(v, comment);
                     } else if (currentUserId != null && currentUserId.equals(postCreatorId)) {
-                        // Show options for post creator
                         showPopupMenu(v, comment);
                     } else {
-                        // Show options for other users
                         Toast.makeText(v.getContext(), "Options for other users", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    // Handle null objects
                     Toast.makeText(v.getContext(), "Error: Null object reference", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -82,11 +78,10 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
             String postCreatorId = commentActionListener.getPostCreatorId();
 
             if (currentUserId != null && postCreatorId != null && comment.getUserId() != null) {
-                // Check if the current user is the comment creator or the post creator
                 if (currentUserId.equals(comment.getUserId()) || currentUserId.equals(postCreatorId)) {
-                    popupMenu.inflate(R.menu.post_options_menu); // This menu should have "Edit" and "Delete" options
+                    popupMenu.inflate(R.menu.post_options_menu);
                 } else {
-                    popupMenu.inflate(R.menu.menu_post_options2); // This menu should have the "Report" option
+                    popupMenu.inflate(R.menu.menu_post_options2);
                 }
 
                 popupMenu.setOnMenuItemClickListener(item -> {
@@ -104,8 +99,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
                 });
                 popupMenu.show();
             } else {
-                // Handle null objects
-                Toast.makeText(view.getContext(), "Error: Null object reference", Toast.LENGTH_SHORT).show();
+                Toast.makeText(view.getContext(), "Error Null object ", Toast.LENGTH_SHORT).show();
             }
         }
     }
