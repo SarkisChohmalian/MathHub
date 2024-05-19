@@ -78,11 +78,16 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
             String postCreatorId = commentActionListener.getPostCreatorId();
 
             if (currentUserId != null && postCreatorId != null && comment.getUserId() != null) {
-                if (currentUserId.equals(comment.getUserId()) || currentUserId.equals(postCreatorId)) {
+                if (currentUserId.equals(comment.getUserId())) {
                     popupMenu.inflate(R.menu.post_options_menu);
+                }
+                if (currentUserId.equals(postCreatorId)) {
+                    popupMenu.inflate(R.menu.post_options_menu_one);
                 } else {
                     popupMenu.inflate(R.menu.menu_post_options2);
+
                 }
+
 
                 popupMenu.setOnMenuItemClickListener(item -> {
                     if (item.getItemId() == R.id.action_edit) {
@@ -106,9 +111,13 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
 
     public interface OnCommentActionListener {
         String getCurrentUserId();
+
         String getPostCreatorId();
+
         void onEditComment(Comment comment);
+
         void onDeleteComment(Comment comment);
+
         void onReportComment(Comment comment);
     }
 }
