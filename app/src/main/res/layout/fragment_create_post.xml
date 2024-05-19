@@ -37,15 +37,6 @@
         android:minLines="3" />
 
 
-    <Button
-        android:id="@+id/add_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:backgroundTint="@color/black"
-        android:text="Add Image" />
-
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
