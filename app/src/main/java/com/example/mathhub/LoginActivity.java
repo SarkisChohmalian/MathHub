@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private EditText loginEmail, loginPassword;
-    private Button loginButton;
+    private Button loginButton, testUserButton;
     private TextView signupRedirectText, forgotPasswordText;
     private CheckBox remember;
 
@@ -43,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         loginEmail = findViewById(R.id.login_email);
         loginPassword = findViewById(R.id.login_password);
         loginButton = findViewById(R.id.login_button);
+        testUserButton = findViewById(R.id.test_user);
         signupRedirectText = findViewById(R.id.signupRedirect);
         remember = findViewById(R.id.remember);
         forgotPasswordText = findViewById(R.id.forgetpassword);
@@ -117,6 +118,36 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        testUserButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String testEmail = "sictst1@gmail.com";
+                final String testPassword = "Samsung2023";
+
+                auth.signInWithEmailAndPassword(testEmail, testPassword)
+                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                            @Override
+                            public void onSuccess(AuthResult authResult) {
+                                if (auth.getCurrentUser().isEmailVerified()) {
+                                    Toast.makeText(LoginActivity.this, "Test User Login Successful", Toast.LENGTH_SHORT).show();
+                                    if (remember.isChecked()) {
+                                        saveCredentials(testEmail, testPassword);
+                                    }
+                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                    finish();
+                                } else {
+                                    Toast.makeText(LoginActivity.this, "Email not verified", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(LoginActivity.this, "Test User Login Failed", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        });
+
         forgotPasswordText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,6 +182,4 @@ public class LoginActivity extends AppCompatActivity {
             }
         }.execute();
     }
-
 }
-

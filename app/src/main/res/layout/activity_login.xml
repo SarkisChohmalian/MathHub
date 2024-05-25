@@ -136,9 +136,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="70dp"
                 android:text="Dont have an account? Sign up!"
                 android:textColor="@color/blue" />
+
+            <Button
+                android:id="@+id/test_user"
+                android:layout_marginBottom="60dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Test user"
+                android:backgroundTint="@color/black"
+                android:layout_marginTop="15dp"/>
+
 
         </LinearLayout>
 
