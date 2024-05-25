@@ -86,7 +86,7 @@
             android:backgroundTint="@color/orange"
             android:text="advanced"
             android:textColor="@color/white"
-            android:textSize="15dp" />
+            android:textSize="14.5dp" />
 
         <Button
             android:id="@+id/Elite"

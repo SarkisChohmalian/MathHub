@@ -65,4 +65,8 @@ public class Post {
     public void setDifficultyLevel(String difficultyLevel) {
         this.difficultyLevel = difficultyLevel;
     }
+
+    public String getDifficulty() {
+        return  difficultyLevel;
+    }
 }

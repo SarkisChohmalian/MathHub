@@ -7,11 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
@@ -57,6 +55,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         private ImageView threeDots;
         private TextView replyText;
         private ImageView replyPic;
+        private TextView difficultyTextView;
 
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -65,6 +64,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
             threeDots = itemView.findViewById(R.id.three_dots);
             replyText = itemView.findViewById(R.id.reply_text);
             replyPic = itemView.findViewById(R.id.reply_pic);
+            difficultyTextView = itemView.findViewById(R.id.difficultyTextView);
 
             threeDots.setOnClickListener(v -> {
                 if (optionsClickListener != null) {
@@ -89,13 +89,37 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
                 intent.putExtra("postCreatorId", post.getCreatorUserId());
                 context.startActivity(intent);
             });
-
         }
 
         public void bind(Post post) {
             titleTextView.setText(post.getTitle());
             descriptionTextView.setText(post.getDescription());
+            // Set difficulty level
+            difficultyTextView.setText(post.getDifficulty());
+            setDifficultyColor(post.getDifficulty());
             threeDots.setVisibility(View.VISIBLE);
+        }
+
+        // Set background color based on difficulty level
+        private void setDifficultyColor(String difficulty) {
+            int color;
+            switch (difficulty) {
+                case "Beginner":
+                    color = R.color.blue;
+                    break;
+                case "Amateur":
+                    color = R.color.yellow;
+                    break;
+                case "Advanced":
+                    color = R.color.orange;
+                    break;
+                case "Elite":
+                    color = R.color.red;
+                    break;
+                default:
+                    color = R.color.blue;
+            }
+            difficultyTextView.setBackgroundResource(color);
         }
     }
 
@@ -103,4 +127,3 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         void onPostOptionsClicked(View view, int position, Post post);
     }
 }
-
