@@ -1,19 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".DiophantineActivity">
 
-    <ImageView
-        android:id="@+id/back"
-        android:layout_width="50dp"
-        android:layout_height="30dp"
-        android:layout_marginLeft="7dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/back"
-        tools:ignore="MissingConstraints" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/back"
+            android:contentDescription="TODO" />
+
+        <ImageButton
+            android:id="@+id/learnmoree"
+            android:layout_width="30dp"
+            android:backgroundTint="@color/white"
+            android:layout_height="30dp"
+            android:layout_marginStart="300dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/learnmore" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Linear Diophantine Equations:"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_margin="16dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="A linear Diophantine equation is an equation of the form ax + by = c, where a, b, and c are integers, and x and y are unknowns."
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Solving Linear Diophantine Equations:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content"
+        android:text="To solve a linear Diophantine equation ax + by = c:"
+        android:textSize="16sp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content"
+        android:text="1. Find one particular solution (x0, y0). This can be done using techniques like the extended Euclidean algorithm or inspection."
+        android:textSize="16sp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="2. Once you have (x0, y0), all solutions can be expressed as:"
+        android:textSize="16sp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="   x = x0 + (b / d) * k"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="   y = y0 - (a / d) * k"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Where d = gcd(a, b) and k is any integer."
+        android:textSize="16sp"
+        android:layout_marginStart="32dp"
+        android:textColor="@color/black"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Proof:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Let (x0, y0) be a solution of ax + by = c."
+        android:textSize="16sp"
+        android:layout_marginStart="32dp"
+        android:textColor="@color/black"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Now, let x = x0 + (b / d) * k and y = y0 - (a / d) * k."
+        android:textSize="16sp"
+        android:layout_marginStart="32dp"
+        android:textColor="@color/black"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Substitute these values into the equation:"
+        android:textSize="16sp"
+        android:layout_marginStart="32dp"
+        android:textColor="@color/black"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="   ax + by = a(x0 + (b / d) * k) + b(y0 - (a / d) * k)"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="      = ax0 + by0 + (abk - abk) / d"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:layout_marginStart="64dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="      = ax0 + by0"
+        android:textSize="16sp"
+        android:layout_marginStart="64dp"
+        android:textColor="@color/black"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="      = c"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginStart="64dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content"
+        android:text="Thus, any pair (x, y) obtained in this way is a solution."
+        android:textSize="15sp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        />
+
 </LinearLayout>
+

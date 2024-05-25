@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
 import androidx.fragment.app.Fragment;
 
 public class LearnFragment extends Fragment {
@@ -22,19 +23,6 @@ public class LearnFragment extends Fragment {
             }
         });
 
-        view.findViewById(R.id.second_concept).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigateToInductionActivity();
-            }
-        });
-
-        view.findViewById(R.id.third_concept).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigateToBezoutActivity();
-            }
-        });
 
         ImageView imageViewProfile = view.findViewById(R.id.imageView2);
         imageViewProfile.setOnClickListener(new View.OnClickListener() {
@@ -52,15 +40,6 @@ public class LearnFragment extends Fragment {
         startActivity(intent);
     }
 
-    public void navigateToInductionActivity() {
-        Intent intent = new Intent(getActivity(), InductionActivity.class);
-        startActivity(intent);
-    }
-
-    public void navigateToBezoutActivity() {
-        Intent intent = new Intent(getActivity(), BezoutActivity.class);
-        startActivity(intent);
-    }
 
     public void navigateToProfileActivity() {
         Intent intent = new Intent(getActivity(), ProfileActivity.class);

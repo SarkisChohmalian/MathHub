@@ -57,37 +57,6 @@
                 android:layout_height="1dp"
                 android:background="@color/light_gray" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/second_concept"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:text="Mathematical Induction"
-                    android:textColor="@color/black"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:padding="8dp"
-                    android:text="Proof technique for statements about integers."
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/light_gray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -125,10 +94,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginTop="100dp"
                 android:text="More will be added Soon"
-                android:layout_gravity="center"
-                android:textColor="@color/grey"/>
+                android:textColor="@color/grey" />
 
 
         </LinearLayout>
