@@ -48,7 +48,6 @@ public class LoginActivity extends AppCompatActivity {
         remember = findViewById(R.id.remember);
         forgotPasswordText = findViewById(R.id.forgetpassword);
 
-        // Check if user previously opted for "Remember Me"
         SharedPreferences sharedPref = getSharedPreferences("loginPrefs", Context.MODE_PRIVATE);
         boolean rememberMe = sharedPref.getBoolean("rememberMe", false);
 

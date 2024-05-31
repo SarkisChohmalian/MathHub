@@ -204,6 +204,5 @@ public class CommentsActivity extends AppCompatActivity implements CommentsAdapt
 
     @Override
     public void onReportComment(Comment comment) {
-        // Implement report comment action
     }
 }

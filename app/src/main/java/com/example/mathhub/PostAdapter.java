@@ -94,13 +94,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder
         public void bind(Post post) {
             titleTextView.setText(post.getTitle());
             descriptionTextView.setText(post.getDescription());
-            // Set difficulty level
             difficultyTextView.setText(post.getDifficulty());
             setDifficultyColor(post.getDifficulty());
             threeDots.setVisibility(View.VISIBLE);
         }
 
-        // Set background color based on difficulty level
         private void setDifficultyColor(String difficulty) {
             int color;
             switch (difficulty) {

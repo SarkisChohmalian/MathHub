@@ -24,7 +24,7 @@ public class DiophantineActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton learnMoreButton = findViewById(R.id.learnmoree); // Update ID here
+        ImageButton learnMoreButton = findViewById(R.id.learnmoree);
         learnMoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

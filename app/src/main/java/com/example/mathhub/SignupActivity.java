@@ -55,7 +55,7 @@ public class SignupActivity extends AppCompatActivity {
                     confirmPassword.setError("Please confirm the password");
                 } else if (!confirmpass.equals(pass)) {
                     confirmPassword.setError("Password must match");
-                } else if (userName.isEmpty()) { // Check if username is empty
+                } else if (userName.isEmpty()) {
                     username.setError("Username cannot be empty");
                 } else if (userName.length() < 4) {
                     username.setError("Username must be at least 4 characters");

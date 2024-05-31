@@ -26,7 +26,6 @@ public class PolicyActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate back to the SettingsActivity
                 onBackPressed();
             }
         });

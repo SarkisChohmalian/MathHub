@@ -49,7 +49,6 @@ public class DeleteAccountActivity extends AppCompatActivity {
             user.delete()
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            // Clear remember me flag
                             clearRememberMeFlag();
 
                             Toast.makeText(DeleteAccountActivity.this, "Account deleted successfully", Toast.LENGTH_SHORT).show();
@@ -64,7 +63,6 @@ public class DeleteAccountActivity extends AppCompatActivity {
     }
 
     private void clearRememberMeFlag() {
-        // Clear remember me flag
         SharedPreferences sharedPref = getSharedPreferences("loginPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putBoolean("rememberMe", false).apply();
