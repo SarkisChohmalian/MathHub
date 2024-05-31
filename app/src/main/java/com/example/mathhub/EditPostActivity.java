@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,7 @@ public class EditPostActivity extends AppCompatActivity {
 
     private EditText editTextTitle, editTextDescription;
     private Button buttonSave;
+    private ImageView imageViewGoBack;
 
     private String postId;
 
@@ -29,6 +31,7 @@ public class EditPostActivity extends AppCompatActivity {
         editTextTitle = findViewById(R.id.editTextTitle);
         editTextDescription = findViewById(R.id.editTextDescription);
         buttonSave = findViewById(R.id.buttonSave);
+        imageViewGoBack = findViewById(R.id.goback234);
 
         postId = getIntent().getStringExtra("postId");
         String title = getIntent().getStringExtra("title");
@@ -45,6 +48,13 @@ public class EditPostActivity extends AppCompatActivity {
                 saveChanges();
             }
         });
+
+        imageViewGoBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goBack();
+            }
+        });
     }
 
     private void saveChanges() {
@@ -54,7 +64,6 @@ public class EditPostActivity extends AppCompatActivity {
         if (postId != null) {
             firestore.collection("posts").document(postId).update("title", newTitle, "description", newDescription)
                     .addOnSuccessListener(aVoid -> {
-                        // Set result as successful and finish the activity
                         Intent resultIntent = new Intent();
                         resultIntent.putExtra("postId", postId);
                         resultIntent.putExtra("title", newTitle);
@@ -66,5 +75,9 @@ public class EditPostActivity extends AppCompatActivity {
                         Toast.makeText(EditPostActivity.this, "Failed to update post: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     });
         }
+    }
+
+    private void goBack() {
+        onBackPressed();
     }
 }

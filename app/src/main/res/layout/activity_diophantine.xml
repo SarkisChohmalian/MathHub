@@ -27,7 +27,7 @@
             android:layout_width="30dp"
             android:backgroundTint="@color/white"
             android:layout_height="30dp"
-            android:layout_marginStart="300dp"
+            android:layout_marginStart="600dp"
             android:layout_gravity="center"
             app:srcCompat="@drawable/learnmore" />
 
